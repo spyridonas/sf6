@@ -1,1 +1,4 @@
-Nothing
+INSTALLATION
+
+Download docker
+run docker compose up -d
