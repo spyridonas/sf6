@@ -12,4 +12,11 @@ interface DatabaseServiceInterface
     public function addProduct(string $name): Product;
 
     public function linkCustomerProduct(Customer $customer, Product $product): void;
+
+    /**
+     * @return Customer[];
+     */
+    public function getAllCustomers(): array;
+
+    public function getCustomer(int $id): array;
 }

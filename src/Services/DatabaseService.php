@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Customer;
 use App\Entity\Product;
+use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DatabaseService implements DatabaseServiceInterface
@@ -40,5 +41,15 @@ class DatabaseService implements DatabaseServiceInterface
     {
         $this->entityManager->persist($item);
         $this->entityManager->flush();
+    }
+
+    public function getAllCustomers(): array
+    {
+        return $this->entityManager->getRepository(Customer::class)->getAllCustomersArray();
+    }
+
+    public function getCustomer(int $id): array
+    {
+        return $this->entityManager->getRepository(Customer::class)->getCustomerId($id);
     }
 }

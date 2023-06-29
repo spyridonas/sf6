@@ -39,6 +39,24 @@ class CustomerRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAllCustomersArray():array
+    {
+        return $this->createQueryBuilder('customer')
+            ->join('customer.products','cp')
+            ->select('cp.name')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function getCustomerId(int $id)
+    {
+        return $this->createQueryBuilder('customer')
+            ->where('customer.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
 //    /**
 //     * @return Customer[] Returns an array of Customer objects
 //     */

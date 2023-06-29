@@ -6,13 +6,16 @@ use App\Entity\Customer;
 use App\Entity\Product;
 use App\Services\DatabaseServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DemoDatabaseController extends AbstractController
 {
-    public function __construct(private readonly DatabaseServiceInterface $databaseService)
+    public function __construct(private readonly DatabaseServiceInterface $databaseService, private readonly LoggerInterface $logger)
     {
     }
 
@@ -35,5 +38,25 @@ class DemoDatabaseController extends AbstractController
         return $this->render('demo_database/index.html.twig', [
             'controller_name' => 'DemoDatabaseController',
         ]);
+    }
+
+    #[Route('/customers')]
+    public function getAllCustomers(): JsonResponse
+    {
+        return $this->json($this->databaseService->getAllCustomers());
+    }
+
+    #[Route('/customer/{id}')]
+    public function getAllCustomerId(int $id): JsonResponse
+    {
+        $customer = $this->databaseService->getCustomer($id);
+        if(!$customer) {
+            $this->logger->critical("Customer $id not found");
+            throw new NotFoundHttpException("Not Found");
+        }
+
+
+        return $this->json($this->databaseService->getCustomer($id));
+
     }
 }
