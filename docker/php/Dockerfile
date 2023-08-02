@@ -1,4 +1,4 @@
-FROM registry.hub.docker.com/library/php:8.1-cli-alpine
+FROM registry.hub.docker.com/library/php:8.2-cli-alpine
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN wget https://github.com/symfony-cli/symfony-cli/releases/latest/download/symfony-cli_linux_amd64.tar.gz -O sf.tar.gz && \
