@@ -5,7 +5,7 @@ RUN wget https://github.com/symfony-cli/symfony-cli/releases/latest/download/sym
     tar -zxf sf.tar.gz symfony && \
     mv symfony /usr/local/bin/symfony && \
     chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions @composer gd curl pdo pdo_mysql mbstring intl zip bcmath simplexml soap xdebug && \
+    install-php-extensions @composer gd curl pdo pdo_mysql mbstring intl zip bcmath simplexml soap xdebug opcache && \
     apk add --no-cache fish grep git openssh &&  \
     addgroup -g 1000 myuser && \
     adduser -G myuser -u 1000 myuser -D && \
